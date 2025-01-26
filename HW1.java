@@ -119,9 +119,25 @@ public class HW1 {
 
         public void removeElement ( int value ) {
 
-            // YOUR CODE GOES HERE
+            // Same thing as removeElementsLT: remove head nodes that match value first
+            while (this.head != null && this.head.data == value) {
+                this.head = this.head.next;
+            }
 
-            return;
+            // If the list is empty, there won't be any values to remove, so return
+            if (this.head == null) {
+                return;
+            }
+
+            // If there's a valid head, iterate through the linked-list and remove elements that match the value
+            Node cursor = this.head;
+            while (cursor.next != null) {
+                if (cursor.next.data == value) {
+                    cursor.next = cursor.next.next; // Remove node if value matches
+                } else {
+                    cursor = cursor.next; // Continue iterating
+                }
+            }
         }
 
 
