@@ -1,6 +1,6 @@
 
 /*
- * *** PLACE YOUR NAME / SECTION  HERE ***
+ * *** Michael Simmons / COMP272 1pm-2:15pm section ***
  *
  * Homework # 1 (Programming Assignment). This Java class defines some basic
  * manipulation operations on Linked-Lists and Stacks.
@@ -85,11 +85,30 @@ public class HW1 {
          * The method will invoke the method removeElements for each element
          * found in the linked-list that is less than thr parameter value passed.
          */
-        public void removeElementsLT ( int ltValue ) {
+        public void removeElementsLT(int ltValue) {
 
-            // YOUR CODE GOES HERE
+            // Starting at the head, if the linked-list is not empty and head value is less than ltValue
+            // The current head value will not be returned in the result linked-list
+            // So, we will move the head to the next node, continuing until the list is empty or a valid head is found
+            while (this.head != null && this.head.data < ltValue) {
+                this.head = this.head.next;
+            }
 
-            return;
+            // If there aren't any values less than ltValue, the list will just be empty, so return here
+            if (this.head == null) {
+                return;
+            }
+
+            // With a valid head, iterate through the linked-list to remove any nodes with a value less than ltValue
+            Node cursor = this.head;
+            while (cursor.next != null) {
+                // If the next node's value is less than ltValue, remove the next node
+                if (cursor.next.data < ltValue) {
+                    cursor.next = cursor.next.next;
+                } else { // Otherwise, continue iterating
+                    cursor = cursor.next;
+                }
+            }
         }
 
 
