@@ -195,8 +195,21 @@ public class HW1 {
             Stack<Character> stack = new Stack<>();
             input = input.toLowerCase().replaceAll("\\s+", "");
 
-            // Your CODE GOES HERE
-            return false;
+            // Push the input string onto the stack
+            for (int i = 0; i < input.length(); i++) {
+                stack.push(input.charAt(i));
+            }
+
+            // Pop each element of the stack and compare it to the input string
+            // This is basically just comparing the input string to its reverse
+            for (int i = 0; i < input.length(); i++) {
+                if (stack.pop() != input.charAt(i)) {
+                    return false;
+                }
+            }
+
+            // If this is reached, then the input string must be a palindrome
+            return true;
         }
 
 
@@ -216,9 +229,31 @@ public class HW1 {
          * completed, place them all back in teh original stack.
          */
         public static int findLargestK(Stack<Integer> stack, int k) {
+            Stack<Integer> reverseStack = new Stack<>(); // Initialize a new stack to restore the original stack
+            int index = -1; // Initialize an index to -1, which will be returned if the value is not found
+            int currentIndex = stack.size() - 1; // Track the current index of the input stack
 
-            // YOUR CODE GOES HERE
-            return -1;
+            // Iterate through the input stack's elements and find the largest index of the value k
+            while (!stack.isEmpty()) {
+                int element = stack.pop();
+
+                // If the element is equal to k and the index has not been set yet, set the index
+                // We don't need to check if the index is already set because the next index will always be larger
+                if (element == k && index == -1) {
+                    index = currentIndex;
+                }
+                // Now, push the element onto the reverse stack and decrement the current index
+                reverseStack.push(element);
+                currentIndex--;
+            }
+
+            // Once the entire input stack has been iterated through, restore the original stack from the reverse stack
+            while (!reverseStack.isEmpty()) {
+                stack.push(reverseStack.pop());
+            }
+
+            // Return the result
+            return index;
         }
 
     }  // End class Stacks
@@ -254,7 +289,7 @@ public class HW1 {
         */
 
         // RETURN THE CORRECT OPTION NUMBER LISTED ABOVE
-        return -1;
+        return 3;
     }
 
 
@@ -275,7 +310,7 @@ public class HW1 {
          */
 
         // RETURN THE CORRECT OPTION LISTED ABOVE
-        return -1;
+        return 2;
     }
 
 }
