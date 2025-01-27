@@ -1,6 +1,6 @@
 
 /*
- * *** Michael Simmons / COMP272 1pm-2:15pm section ***
+ * *** Michael Simmons / COMP272/400C-002 ***
  *
  * Homework # 1 (Programming Assignment). This Java class defines some basic
  * manipulation operations on Linked-Lists and Stacks.
@@ -73,8 +73,6 @@ public class HW1 {
                 new_node.next = current.next;
                 current.next = new_node;
             }
-
-            return;
         }
 
 
@@ -87,14 +85,14 @@ public class HW1 {
          */
         public void removeElementsLT(int ltValue) {
 
-            // Starting at the head, if the linked-list is not empty and head value is less than ltValue
-            // The current head value will not be returned in the result linked-list
+            // Starting at the head, if the linked-list is not empty and head value is less than ltValue:
+            // The current head value should be removed in the result linked-list
             // So, we will move the head to the next node, continuing until the list is empty or a valid head is found
             while (this.head != null && this.head.data < ltValue) {
                 this.head = this.head.next;
             }
 
-            // If there aren't any values less than ltValue, the list will just be empty, so return here
+            // If there aren't any values less than ltValue, the list will just be empty, so there's nothing to iterate. So, return here
             if (this.head == null) {
                 return;
             }
@@ -119,12 +117,14 @@ public class HW1 {
 
         public void removeElement ( int value ) {
 
-            // Same thing as removeElementsLT: remove head nodes that match value first
+            // Same logic thing as removeElementsLT:
+            // If the linked-list is not empty and the head matches the value, then the head should be removed
+            // So, move the head to the next node until the list is empty or a valid head is found
             while (this.head != null && this.head.data == value) {
                 this.head = this.head.next;
             }
 
-            // If the list is empty, there won't be any values to remove, so return
+            // If the list is empty, there won't be any values to remove, so there's nothing to iterate. So, return here
             if (this.head == null) {
                 return;
             }
@@ -195,6 +195,11 @@ public class HW1 {
             Stack<Character> stack = new Stack<>();
             input = input.toLowerCase().replaceAll("\\s+", "");
 
+            /*
+            By using the provided stack, we can push every element of the input string into the stack to reverse it (by popping the stack).
+            Then, we can just compare the reversed string to the original string, then return false if they don't match.
+             */
+
             // Push the input string onto the stack
             for (int i = 0; i < input.length(); i++) {
                 stack.push(input.charAt(i));
@@ -204,6 +209,7 @@ public class HW1 {
             // This is basically just comparing the input string to its reverse
             for (int i = 0; i < input.length(); i++) {
                 if (stack.pop() != input.charAt(i)) {
+                    // Return false since it cannot be a palindrome if this is ever reached
                     return false;
                 }
             }
@@ -229,9 +235,9 @@ public class HW1 {
          * completed, place them all back in teh original stack.
          */
         public static int findLargestK(Stack<Integer> stack, int k) {
-            Stack<Integer> reverseStack = new Stack<>(); // Initialize a new stack to restore the original stack
-            int index = -1; // Initialize an index to -1, which will be returned if the value is not found
-            int currentIndex = stack.size() - 1; // Track the current index of the input stack
+            Stack<Integer> reverseStack = new Stack<>(); // Initialize a new stack to restore the original stack so it's not destroyed
+            int index = -1; // Initialize an index to -1, which will be returned by default if the value is not found
+            int currentIndex = stack.size() - 1; // Track the current index of the input stack (-1 since 0-indexed)
 
             // Iterate through the input stack's elements and find the largest index of the value k
             while (!stack.isEmpty()) {
